@@ -31,9 +31,9 @@ export default function LocationDialog({
       locationName: "",
       baseUrl: "",
       custodyLimits: [
-        { depositLimit: "", spendLimit: "" }, // Remand Prison
-        { depositLimit: "", spendLimit: "" }, // Under Trial
-        { depositLimit: "", spendLimit: "" }, // Contempt of Court
+        { depositLimit: "", spendLimit: "", custodyType: "remand_prison" }, // Remand Prison
+        { depositLimit: "", spendLimit: "", custodyType: "under_trail" }, // Under Trial
+        { depositLimit: "", spendLimit: "", custodyType: "contempt_of_court" }, // Contempt of Court
       ],
     },
   });
@@ -50,9 +50,9 @@ export default function LocationDialog({
           selectedLocation.custodyLimits?.length === 3
             ? selectedLocation.custodyLimits
             : [
-                { depositLimit: "", spendLimit: "" },
-                { depositLimit: "", spendLimit: "" },
-                { depositLimit: "", spendLimit: "" },
+                { depositLimit: "", spendLimit: "", custodyType: "remand_prison" },
+                { depositLimit: "", spendLimit: "", custodyType: "under_trail" },
+                { depositLimit: "", spendLimit: "", custodyType: "contempt_of_court" },
               ],
       });
     } else {
@@ -61,9 +61,9 @@ export default function LocationDialog({
         locationName: "",
         baseUrl: "",
         custodyLimits: [
-          { depositLimit: "", spendLimit: "" },
-          { depositLimit: "", spendLimit: "" },
-          { depositLimit: "", spendLimit: "" },
+          { depositLimit: "", spendLimit: "", custodyType: "remand_prison" },
+          { depositLimit: "", spendLimit: "", custodyType: "under_trail" },
+          { depositLimit: "", spendLimit: "", custodyType: "contempt_of_court" },
         ],
       });
     }
