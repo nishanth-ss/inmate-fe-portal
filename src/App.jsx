@@ -33,11 +33,11 @@ export default function App() {
           {/* ============================
               STUDENT routes (ONLY 2 pages)
           ============================ */}
-          <Route element={<RoleRoute allow={["STUDENT"]} />}>
-            <Route path="/student-profile" element={<StudentProfilePage />} />
-            <Route path="/student-transaction" element={<StudentTransactionsPage />} />
+          <Route element={<RoleRoute allow={["INMATE"]} />}>
+            <Route path="/inmate-profile" element={<StudentProfilePage />} />
+            <Route path="/inmate-transaction" element={<StudentTransactionsPage />} />
             {/* student default */}
-            <Route index element={<Navigate to="/student-profile" replace />} />
+            <Route index element={<Navigate to="/inmate-profile" replace />} />
           </Route>
 
           {/* ============================

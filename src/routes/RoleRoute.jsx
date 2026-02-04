@@ -7,8 +7,8 @@ const getDefaultRouteByRole = (role) => {
   switch (normalizeRole(role)) {
     case "POS":
       return "/tuck-shop-pos";
-    case "STUDENT":
-      return "/student-profile";
+    case "INMATE":
+      return "/inmate-profile";
     case "SUPER ADMIN":
     case "ADMIN":
       return "/dashboard";

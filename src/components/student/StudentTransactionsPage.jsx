@@ -2,8 +2,11 @@ import React, { useMemo, useState } from "react";
 import { Box } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { useStudentTransactions } from "../../hooks/useStudentExactQuery";
+import { useAuth } from "../../context/AuthContext";
 
-export default function StudentTransactionsTable({ regNo = "STU002" }) {
+export default function StudentTransactionsTable() {
+  const { user } = useAuth();
+  const regNo = user?.username;
   // ✅ DataGrid uses 0-based page
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(10);
@@ -16,8 +19,9 @@ export default function StudentTransactionsTable({ regNo = "STU002" }) {
     apiPage,
     pageSize
   );
+console.log(data);
 
-  const total = data?.total ?? 0;
+  const total = data?.count ?? 0;
   const transactions = data?.transactions ?? [];
 
   // ⚠️ Adjust these fields based on actual transaction object keys

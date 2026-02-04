@@ -30,7 +30,7 @@ export const deleteStudent = async (studentId) => {
 export async function getStudentProfile(registrationNumber) {
   if (!registrationNumber) throw new Error("registrationNumber is required");
 
-  const res = await api.get(`inmate/profile/${registrationNumber}`);
+  const res = await api.get(`inmate/inmateid/${registrationNumber}`);
   // Your API returns: { success, data, message }
   return res.data;
 }

@@ -37,8 +37,8 @@ export default function Sidebar({ isOpen = false, onClose }) {
     { title: "User Management", icon: UserRoundPen, path: "/user-management", roles: ["ADMIN"] },
     { title: "Inventory", icon: ShoppingBag, path: "/inventory", roles: ["ADMIN"] },
     { title: "Audit Trails", icon: ShieldCheck, path: "/audit-trails", roles: ["ADMIN"] },
-    { title: "Student Profile", icon: Users, path: "/student-profile", roles: ["STUDENT"] },
-    { title: "Student Transaction", icon: ArrowLeftRight, path: "/student-transaction", roles: ["STUDENT"] },
+    { title: "Inmate Profile", icon: Users, path: "/inmate-profile", roles: ["INMATE"] },
+    { title: "Inmate Transaction", icon: ArrowLeftRight, path: "/inmate-transaction", roles: ["INMATE"] },
   ];
 
   const allowedItems = sideBarItems.filter((item) =>

@@ -21,8 +21,8 @@ const getRedirectPath = (role) => {
       return "/dashboard";
     case "POS":
       return "/tuck-shop-pos";
-    case "STUDENT":
-      return "/student-profile";
+    case "INMATE":
+      return "/inmate-profile";
     default:
       return "/login";
   }

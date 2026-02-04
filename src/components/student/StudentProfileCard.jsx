@@ -14,8 +14,12 @@ function Row({ label, value }) {
 export default function StudentProfileCard({ student }) {
   if (!student) return null;
 
-  const dob = student?.date_of_birth
-    ? new Date(student.date_of_birth).toLocaleDateString()
+  const dob = student?.dateOfBirth
+    ? new Date(student.dateOfBirth).toLocaleDateString()
+    : "-";
+
+  const admissionDate = student?.admissionDate
+    ? new Date(student.admissionDate).toLocaleDateString()
     : "-";
 
   return (
@@ -24,10 +28,12 @@ export default function StudentProfileCard({ student }) {
       <div className="flex items-center justify-between border-b pb-4">
         <div>
           <h2 className="text-xl font-bold text-gray-800">
-            {student.student_name || "Student"}
+            {student.firstName && student.lastName 
+              ? `${student.firstName} ${student.lastName}` 
+              : "Inmate"}
           </h2>
           <p className="text-sm text-gray-500">
-            Registration No: {student.registration_number}
+            Inmate ID: {student.inmateId}
           </p>
         </div>
       </div>
@@ -35,39 +41,33 @@ export default function StudentProfileCard({ student }) {
       {/* Quick info */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="border rounded-lg p-4">
-          <p className="text-xs text-gray-500">Class</p>
+          <p className="text-xs text-gray-500">Status</p>
           <p className="font-semibold text-gray-800">
-            {student?.class_info?.class_name ?? "-"} -{" "}
-            {student?.class_info?.section ?? "-"}
+            {student?.status ?? "-"}
           </p>
           <p className="text-xs text-gray-500 mt-1">
-            Academic Year: {student?.class_info?.academic_year ?? "-"}
+            Custody Type: {student?.custodyType ?? "-"}
           </p>
         </div>
 
         <div className="border rounded-lg p-4">
-          <p className="text-xs text-gray-500">Location</p>
+          <p className="text-xs text-gray-500">Account</p>
           <p className="font-semibold text-gray-800">
-            {student?.location_id?.locationName ?? "-"}
+            Balance: ${student?.balance ?? 0}
           </p>
           <p className="text-xs text-gray-500 mt-1">
-            Gender: {student?.gender ?? "-"}
+            Blocked: {student?.is_blocked === "true" ? "Yes" : "No"}
           </p>
         </div>
       </div>
 
       {/* Details */}
       <div className="border rounded-lg px-4">
-        <Row label="Mother Name" value={student.mother_name} />
-        <Row label="Father Name" value={student.father_name} />
-        <Row label="Contact Number" value={student.contact_number} />
+        <Row label="Phone Number" value={student.phonenumber} />
+        <Row label="Cell Number" value={student.cellNumber || "N/A"} />
         <Row label="Date of Birth" value={dob} />
-        <Row label="Birth Place" value={student.birth_place} />
-        <Row label="Nationality" value={student.nationality} />
-        <Row label="Mother Tongue" value={student.mother_tongue} />
-        <Row label="Blood Group" value={student.blood_group} />
-        <Row label="Religion" value={student.religion} />
-        <Row label="Deposit Amount" value={student.deposite_amount} />
+        <Row label="Admission Date" value={admissionDate} />
+        <Row label="Location ID" value={student.location_id} />
       </div>
     </div>
   );
