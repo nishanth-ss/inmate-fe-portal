@@ -71,13 +71,21 @@ const BulkOperation = ({ location }) => {
             if (!payload?.success) {
                 enqueueSnackbar(payload?.message || "Upload failed.", { variant: "error" });
             } else {
+                const created = payload?.results?.created?.length ?? 0;
+                const alreadyExists = payload?.results?.alreadyExists?.length ?? 0;
+                const failed = payload?.results?.failed?.length ?? 0;
+                
                 enqueueSnackbar(
-                    `Upload successful. Created: ${payload?.summary?.created ?? 0}, Skipped: ${payload?.summary?.skipped ?? 0}, Failed: ${payload?.summary?.failed ?? 0}`,
+                    `Upload successful. Created: ${created}, Already Exists: ${alreadyExists}, Failed: ${failed}`,
                     { variant: "success" }
                 );
 
-                if ((payload?.summary?.failed ?? 0) > 0) {
-                    console.warn("Failed records:", payload?.failedRecords || payload?.summary?.failed);
+                if (failed > 0) {
+                    console.warn("Failed records:", payload?.results?.failed);
+                    // Optionally show more detailed error for failed records
+                    payload?.results?.failed?.forEach((record, index) => {
+                        console.warn(`Failed record ${index + 1}:`, record);
+                    });
                 }
             }
         } catch (err) {

@@ -23,10 +23,20 @@ import { useCreateStudentMutation, useUpdateStudentMutation } from "../../hooks/
 import { useLocationCtx } from "../../context/LocationContext";
 import { useDeleteFaceRecognitionMutation } from "../../hooks/useUsersQuery";
 
-const toDateInput = (iso) => {
-  if (!iso) return "";
-  return String(iso).slice(0, 10);
+const toDateInput = (value) => {
+  if (!value) return "";
+
+  const d = value instanceof Date ? value : new Date(value);
+
+  // invalid date
+  if (Number.isNaN(d.getTime())) return "";
+
+  // treat epoch as "empty" (optional, but helps if your DB already has 1970 saved)
+  if (d.getTime() === 0) return "";
+
+  return d.toISOString().slice(0, 10); // yyyy-mm-dd
 };
+ 
 
 const inmateSchema = yup.object({
   inmateId: yup.string().trim().required("Inmate ID is required"),
@@ -40,7 +50,7 @@ const inmateSchema = yup.object({
     .required("Phone Number is required"),
 
   // ✅ Optional
-  custodyType: yup.string().nullable().optional(),
+  custodyType: yup.string().required("Custody Type is required"),
   cellNumber: yup.string().nullable().optional(),
 
   // ✅ Optional date fields (allow empty string)
@@ -321,15 +331,19 @@ export default function InmateFormModal({
               <TextField
                 select
                 fullWidth
-                label="Custody Type"
+                label={
+                  <>
+                    Custody Type <span style={{ color: "red" }}>*</span>
+                  </>
+                }
                 defaultValue={defaultValues.custodyType}
                 {...register("custodyType")}
                 error={!!errors.custodyType}
                 helperText={errors.custodyType?.message}
               >
-                <MenuItem value="Under Trail">Under Trail</MenuItem>
-                <MenuItem value="Contempt of Court">Contempt of Court</MenuItem>
-                <MenuItem value="Remand Prison">Remand Prison</MenuItem>
+                <MenuItem value="under_trail">Under Trail</MenuItem>
+                <MenuItem value="contempt_of_court">Contempt of Court</MenuItem>
+                <MenuItem value="remand_prison">Remand Prison</MenuItem>
               </TextField>
 
               <TextField
